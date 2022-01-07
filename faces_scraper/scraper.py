@@ -75,7 +75,7 @@ for data in tqdm(datas):
 
     out.append({
         "alt" : alt,
-        "name" : name,
+        "hash" : name,
         "origine" : "LinkedIn - "+data["keyword"]
     })
 print("end download")
@@ -89,7 +89,7 @@ import sqlite3
 conn = sqlite3.connect('../database.db')
 c = conn.cursor()
 
-c.executemany('INSERT INTO scraping (alt,name,origine) VALUES(?, ?, ?);',[list(o.values()) for o in out]);
+c.executemany('INSERT INTO scraping (alt,hash,origine) VALUES(?, ?, ?);',[list(o.values()) for o in out]);
 conn.commit()
 
 # Certaine images ont le même label "alt"

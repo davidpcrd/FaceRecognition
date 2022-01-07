@@ -1,0 +1,10 @@
+tensorflow
+deepface
+validators==0.18.2
+mtcnn==0.1.1
+selenium==3.141.0
+tqdm==4.50.2
+opencv_python==4.5.3.56
+numpy==1.19.2
+wget==3.2
+Pillow==9.0.0
