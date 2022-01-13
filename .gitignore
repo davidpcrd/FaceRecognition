@@ -132,3 +132,4 @@ dmypy.json
 *.scrape.png
 *.scrape (*).png
 *.face.png
+.tmp
