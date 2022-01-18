@@ -39,15 +39,17 @@ if not os.path.exists("data.json"):
             film = tree.xpath(f'//*[@id="main"]/div/div[3]/div[{i}]/div[2]/p[1]/a/text()')[0].strip()
             desc = " ".join(map(lambda t: t.strip(), tree.xpath(f'//*[@id="main"]/div/div[3]/div[{i}]/div[2]/p[2]/text()')))
             filename = hashlib.md5(str(str(artist_name)+str(randint(0,999))).encode()).hexdigest()
-
-            data.append({
+            to_add = {
                 "img" : img,
                 "artist_name" : artist_name,
                 "type" : type,
                 "film" : film,
                 "desc" : desc,
                 "file_name" : filename
-            })
+            }
+            if to_add not in data:
+                data.append(to_add)
+
     with open('data.json', 'w') as fp:
         json.dump(data, fp)
 
@@ -81,3 +83,9 @@ for worker in workers:
 for worker in workers:
     worker.join()
     
+#%%
+from _add_to_db import add_to_db
+
+
+add_to_db(data)
+# %%
