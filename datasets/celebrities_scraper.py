@@ -1,7 +1,6 @@
 # J'utilise www.imdb.com/search/name/?birth_date=1920-01-01,2010-01-01&adult=include
 # 
 # %%
-from asyncio import threads
 import requests
 from lxml import etree
 from tqdm import tqdm
@@ -88,15 +87,15 @@ from _add_to_db import add_to_db
 
 add_to_db(data)
 # %%
-"""
 import glob
 import cv2
 files = glob.glob(os.path.join("../images/celebrities_before/","*"))
 
-for file in files:
+for file in tqdm(files):
     filename = os.path.basename(file).replace("scrape","resize")
     img =  cv2.imread(file)
     if img.shape[0] > 1000:
         img = cv2.resize(img, (int(1000*img.shape[1]/img.shape[0]),1000), interpolation=cv2.INTER_LINEAR)
     cv2.imwrite(os.path.join("../images/celebrities_resizes/",filename),img)
-"""
+
+# %%
