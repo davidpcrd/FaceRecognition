@@ -11,9 +11,11 @@ with open("data.json", "r") as fp:
     data = json.load(fp)
 
 url = []
+end = []
 for d in data:
     if d["img"] not in url:
         url.append(d["img"])
+        end.append(d)
 
 with open('data_clean.json', 'w') as fp:
-    json.dump(data, fp)
+    json.dump(end, fp)

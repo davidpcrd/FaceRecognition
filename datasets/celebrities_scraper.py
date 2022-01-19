@@ -1,6 +1,7 @@
 # J'utilise www.imdb.com/search/name/?birth_date=1920-01-01,2010-01-01&adult=include
 # 
 # %%
+from asyncio import threads
 import requests
 from lxml import etree
 from tqdm import tqdm
@@ -21,14 +22,12 @@ thread = int(args["thread"])
 
 os.chdir(os.path.dirname(os.path.realpath(__file__))) ## SET WORKING DIR TO faces_scraper
 
-url = lambda start : f"https://www.imdb.com/search/name/?birth_date=1920-01-01,2010-01-01&adult=include&count=100&start={start}&ref_=rlm"
-
+url = lambda start : f"https://www.imdb.com/search/name/?birth_date=1920-01-01,2010-01-01&adult=include&count=100&start={start}"
 # %%
 if not os.path.exists("data.json"):
 
     data = []
-    for start in tqdm(range(1, 30000, 100)):
-        start = 0
+    for start in tqdm(range(1, 5000, 100)):
         res = requests.get(url(start))
 
         tree = etree.HTML(res.text)
@@ -89,3 +88,15 @@ from _add_to_db import add_to_db
 
 add_to_db(data)
 # %%
+"""
+import glob
+import cv2
+files = glob.glob(os.path.join("../images/celebrities_before/","*"))
+
+for file in files:
+    filename = os.path.basename(file).replace("scrape","resize")
+    img =  cv2.imread(file)
+    if img.shape[0] > 1000:
+        img = cv2.resize(img, (int(1000*img.shape[1]/img.shape[0]),1000), interpolation=cv2.INTER_LINEAR)
+    cv2.imwrite(os.path.join("../images/celebrities_resizes/",filename),img)
+"""
