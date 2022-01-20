@@ -17,13 +17,15 @@ import argparse
 parser = argparse.ArgumentParser()
  
 parser.add_argument("-k", "--keyword", help = "s1,s2,s3", default="martigny,sion,sierre,brig")
-parser.add_argument("-o", "--output", help = "image output folder", default="../images/before_process")
+parser.add_argument("-o", "--output", help = "image output folder", default="images/before_process")
 parser.add_argument("-d", "--debug", help = "stop at (navigation 1,download 2,db 3)", default="none")
 
 args = vars(parser.parse_args())
 debug = args["debug"]
 
-os.chdir(os.path.dirname(os.path.realpath(__file__))) ## SET WORKING DIR TO faces_scraper
+
+
+# os.chdir(os.path.dirname(os.path.realpath(__file__))) ## SET WORKING DIR TO faces_scraper
 driver = webdriver.Chrome(executable_path="chromedriver.exe")
 
 if "1" in debug:
@@ -86,7 +88,7 @@ if "3" in debug:
 print("save into database")
 import sqlite3
 
-conn = sqlite3.connect('../database.db')
+conn = sqlite3.connect('database.db')
 c = conn.cursor()
 
 c.executemany('INSERT INTO scraping (alt,hash,origine) VALUES(?, ?, ?);',[list(o.values()) for o in out]);

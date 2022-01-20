@@ -6,14 +6,14 @@ from tqdm import tqdm
 import base64
 
 import glob
-source = "linkedin"
-input_folder = "../images/faces_extract"
+# source = "linkedin"
+# input_folder = "../images/faces_extract"
 
 # %%
-os.chdir(os.path.dirname(os.path.realpath(__file__))) ## SET WORKING DIR TO faces_scraper
+# os.chdir(os.path.dirname(os.path.realpath(__file__))) ## SET WORKING DIR TO faces_scraper
 parser = argparse.ArgumentParser()
  
-parser.add_argument("-i", "--input", help = "Input folder. default=../images/faces_extract", default="../images/faces_extract")
+parser.add_argument("-i", "--input", help = "Input folder. default=images/faces_extract", default="images/faces_extract")
 parser.add_argument("-s", "--source", help = "Source of data", default="")
 parser.add_argument("-t", "--table", help = "table dans laquelle mettre dedans", default="global")
 parser.add_argument("-u", "--update", help = "Update la table au lieu de add", action="store_true")
@@ -42,7 +42,7 @@ for f in tqdm(files):
 
 import sqlite3
 
-conn = sqlite3.connect('../database.db')
+conn = sqlite3.connect('database.db')
 c = conn.cursor()
 
 print("Add data to database")
