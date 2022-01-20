@@ -16,7 +16,7 @@ def grab_face_coordinates(img, cascade):
     """
     i = 4
     while i > 3:
-        faces = cascade.detectMultiScale(gray, 1.10, i)
+        faces = cascade.detectMultiScale(gray, 1.5, i)
         i-=1
         if len(faces) > 0:
             (x1,y1,w,h) = faces[0]
