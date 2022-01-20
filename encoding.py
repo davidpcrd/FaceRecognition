@@ -15,7 +15,7 @@ parser = argparse.ArgumentParser()
  
 parser.add_argument("-i", "--input", help = "Input folder. default=images/faces_extract", default="images/faces_extract")
 parser.add_argument("-s", "--source", help = "Source of data", default="")
-parser.add_argument("-t", "--table", help = "table dans laquelle mettre dedans", default="global")
+parser.add_argument("-t", "--table", help = "table dans laquelle mettre les infos", default="global")
 parser.add_argument("-u", "--update", help = "Update la table au lieu de add", action="store_true")
 
 args = vars(parser.parse_args())

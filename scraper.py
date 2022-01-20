@@ -16,8 +16,8 @@ import argparse
  
 parser = argparse.ArgumentParser()
  
-parser.add_argument("-k", "--keyword", help = "s1,s2,s3", default="martigny,sion,sierre,brig")
-parser.add_argument("-o", "--output", help = "image output folder", default="images/before_process")
+parser.add_argument("-k", "--keyword", help = "mots que le robot va chercher dans google. separer par virgule ex: sion,sierre,brig. default: martigny,sion,sierre,brig", default="martigny,sion,sierre,brig")
+parser.add_argument("-o", "--output", help = "image output folder. default: images/before_process", default="images/before_process")
 parser.add_argument("-d", "--debug", help = "stop at (navigation 1,download 2,db 3)", default="none")
 
 args = vars(parser.parse_args())
