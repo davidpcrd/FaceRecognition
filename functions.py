@@ -14,8 +14,8 @@ def grab_face_coordinates(img, cascade):
         Param2 : scaleFactor -> De combien le masque vas réduire à chaque étape
         Param3 : minNeighbors -> Plus grand => meilleur résultat mais - de match
     """
-    i = 4
-    while i > 3:
+    i = 3
+    while i == 3:
         faces = cascade.detectMultiScale(gray, 1.5, i)
         i-=1
         if len(faces) > 0:
