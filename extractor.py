@@ -31,10 +31,10 @@ if not os.path.exists(output_folder):
 
 # Load opencv/MTCNN
 if not dpl:
-    from functions import process
+    from utils.functions import process
     face_cascade = cv2.CascadeClassifier(get_relative_files_from_py(__file__, "haarcascade_frontalface_default.xml"))
 else:
-    from functions import process_dpl
+    from utils.functions import process_dpl
     from mtcnn import MTCNN
     detector = MTCNN()
 
