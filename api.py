@@ -13,25 +13,29 @@ import pandas as pd
 
 table_name="celebrities"
 kmeans_model_file = "models/kmeans_model.pkl"
-image_path = "tests\dame1.png"
 haarcascade = "haarcascade_frontalface_default.xml"
+
+
+def load_data():
+    conn = sqlite3.connect("database.db")
+    c = conn.cursor()
+    c.execute(f"SELECT name,vector,group_id FROM {table_name} WHERE vector NOT NULL")
+    row = c.fetchall()
+    ids = []
+    vectors = []
+    for r in row:
+        vector_byte = base64.b64decode(r[1])
+        vector = list(map(lambda x : float(x) ,vector_byte.decode('ascii').split(",")))
+        ids.append(r[0])
+        vectors.append(vector)
+
+    return ids, pd.DataFrame(vectors)
+
 
 cascade = cv2.CascadeClassifier(os.path.join(os.path.dirname(os.path.realpath(__file__)), haarcascade))
 model = Facenet.loadModel()
 
-conn = sqlite3.connect("database.db")
-c = conn.cursor()
-c.execute("SELECT name,vector FROM celebrities WHERE vector NOT NULL")
-row = c.fetchall()
-ids = []
-vectors = []
-for r in row:
-    vector_byte = base64.b64decode(r[1])
-    vector = list(map(lambda x : float(x) ,vector_byte.decode('ascii').split(",")))
-    ids.append(r[0])
-    vectors.append(vector)
-
-df = pd.DataFrame(vectors)
+ids, all_vectors = load_data()
 
 app = Flask(__name__)
 
@@ -55,15 +59,21 @@ def whois():
         vector = DeepFace.represent(img_path = trans, model=model, enforce_detection=False)
         
         # eclidian distance
-        min_indx = pd.DataFrame(((df-vector)**2).sum(axis=1)**(1/2)).sort_values(0)
+        min_indx = pd.DataFrame(((all_vectors-vector)**2).sum(axis=1)**(1/2)).sort_values(0)
         to_return.append({"face" : {"x": int(x1), "y": int(y1), "w" : int(w), "h":int(h)}, 
         "name" : ids[min_indx[0].index[0]], 
         "distance" : float(min_indx.iloc[0,0].tolist())
         })
     return jsonify({"results": to_return})
 
-# @app.route("/encode", methods=["POST"])
-# def encode():
+@app.route("/encode", methods=["POST"])
+def encode():
+    data = request.files['file']
+    nparr = np.fromstring(data.read(), np.uint8)
+    img_np = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+    img = convert_img_BGR2RGB(img_np)
+    vector = DeepFace.represent(img_path = img, model=model, enforce_detection=False)
+    return jsonify({"vector": vector})
 
 
-app.run(host="0.0.0.0", port=5555, debug=True)
+app.run(host="0.0.0.0", port=5555, debug=False)

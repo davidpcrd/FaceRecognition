@@ -5,14 +5,15 @@ import os
 def read_image(path):
     return cv2.imread(path)
 
-def grab_face_coordinates(img, cascade):
+def grab_face_coordinates(img, cascade: cv2.CascadeClassifier) -> np.ndarray:
+    """
+    img : numpy images im BGR colorspace
+    cascade : opencv CascadeClassifier
+
+    return : face box point if face detected, np.float32()
+    """
+
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    """
-        sources : https://www.bogotobogo.com/python/OpenCV_Python/python_opencv3_Image_Object_Detection_Face_Detection_Haar_Cascade_Classifiers.php
-        Param1 : img
-        Param2 : scaleFactor -> De combien le masque vas réduire à chaque étape
-        Param3 : minNeighbors -> Plus grand => meilleur résultat mais - de match
-    """
     i = 3
     while i == 3:
         faces = cascade.detectMultiScale(gray, 1.5, i)
@@ -29,7 +30,14 @@ def grab_face_coordinates(img, cascade):
         [x1+w,y1+h]
     ])
 
-def grab_all_face_coordinates(img, cascade):
+def grab_all_face_coordinates(img, cascade: cv2.CascadeClassifier) -> list:
+    """
+    img : numpy images im BGR colorspace
+    cascade : opencv CascadeClassifier
+
+    return : array of face (x,y,w,h)
+    """
+    
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     return cascade.detectMultiScale(gray, 1.5, 3)
 
@@ -65,9 +73,6 @@ def convert_img_BGR2RGB(img):
 def save_img(img, path):
     cv2.imwrite(path,img)
 
-"""
-    Plus rapide mais moins précis 
-"""
 def process(img_path, img_output, target_size, cascade):
     img = read_image(img_path)
     face_coor = grab_face_coordinates(img, cascade)
@@ -76,9 +81,6 @@ def process(img_path, img_output, target_size, cascade):
     trans = image_transform(img, face_coor, target_size=target_size)
     save_img(trans, img_output)
 
-"""
-    Le must 
-"""
 def process_dpl(img_path, img_output, target_size, detector):
     img = read_image(img_path)
     face_coor = grab_face_coordinates_dpl(img, detector)
