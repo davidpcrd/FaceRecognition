@@ -60,11 +60,12 @@ DELETE FROM celebrities_data;
 DELETE FROM celebrities_faces;
 DELETE FROM sqlite_sequence WHERE name="celebrities_data" OR name="celebrities_faces"
 ```
-puis j'ai pu modifier les scripts afin que tous soit bon
+puis j'ai pu modifier les scripts afin que tous soit bon.
 
 ### Table "celebrities_faces" (Après 29.01.22)
 | Key | Description |
 | ----------- | ----------- |
+| id | id qui autoincrement |
 | celebrity_id | Id de la celebritée de "celebrities_data" |
 | celebrity_name | nom de la celebritée de "celebrities_data" |
 | img_url | url du visage scrapé |
@@ -72,6 +73,24 @@ puis j'ai pu modifier les scripts afin que tous soit bon
 | vector | La représentation vectoriel du visage encodé en base64 |
 | group_id | Groupe auquelle appartient le visage (k-means par exemple) |
 
+afin d'ajouter un id a une table déjà existant, j'utilise
+```sql
+CREATE TABLE "celebrities_faces_id" (
+	"id" INTEGER PRIMARY KEY AUTOINCREMENT,
+	"celebrity_id"	INTEGER,
+	"celebrity_name"	TEXT,
+	"img_url"	TEXT,
+	"hash"	TEXT,
+	"vector"	TEXT,
+	"group_id"	INTEGER
+);
+INSERT INTO celebrities_faces_id(celebrity_id, celebrity_name, img_url, hash, vector,group_id)
+SELECT celebrity_id, celebrity_name, img_url, hash, vector,group_id
+FROM celebrities_faces;
+
+DROP TABLE celebrities_faces;
+ALTER TABLE celebrities_faces_id RENAME TO celebrities_faces;
+```
 
 ## Comment les données sont récupéré ? 
 ### 1. Les personnes lambda depuis linkdin
