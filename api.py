@@ -11,7 +11,7 @@ import sqlite3
 import base64
 import pandas as pd
 
-table_name="celebrities"
+table_name="celebrities_faces"
 kmeans_model_file = "models/kmeans_model.pkl"
 haarcascade = "haarcascade_frontalface_default.xml"
 
@@ -19,7 +19,7 @@ haarcascade = "haarcascade_frontalface_default.xml"
 def load_data():
     conn = sqlite3.connect("database.db")
     c = conn.cursor()
-    c.execute(f"SELECT name,vector,group_id FROM {table_name} WHERE vector NOT NULL")
+    c.execute(f"SELECT celebrity_name,vector,group_id FROM {table_name} WHERE vector NOT NULL")
     row = c.fetchall()
     ids = []
     vectors = []
