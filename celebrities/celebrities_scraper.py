@@ -16,7 +16,7 @@ parser = argparse.ArgumentParser()
 
  
 parser.add_argument("-t", "--thread", help = "Number of thread. default 50", default="50")
-parser.add_argument("-o", "--ouput_folder", help = "Output folder. default=../images/celebrities_before", default="../images/celebrities_before")
+parser.add_argument("-o", "--output-folder", help = "Output folder. default=../images/celebrities_before", default="../images/celebrities_before")
 
 args = vars(parser.parse_args())
 thread = int(args["thread"])
