@@ -26,7 +26,7 @@ debug = args["debug"]
 
 
 # os.chdir(os.path.dirname(os.path.realpath(__file__))) ## SET WORKING DIR TO faces_scraper
-driver = webdriver.Chrome(executable_path="chromedriver.exe")
+driver = webdriver.Chrome(executable_path="utils/chromedriver.exe")
 
 if "1" in debug:
     exit()
