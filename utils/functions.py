@@ -1,7 +1,6 @@
 import cv2
 import numpy as np
 import os
-from mtcnn import MTCNN
 
 def read_image(path):
     return cv2.imread(path)
@@ -30,7 +29,12 @@ def grab_face_coordinates(img, cascade):
         [x1+w,y1+h]
     ])
 
-def grab_face_coordinates_dpl(img, detector: MTCNN):
+def grab_all_face_coordinates(img, cascade):
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    return cascade.detectMultiScale(gray, 1.5, 3)
+
+
+def grab_face_coordinates_dpl(img, detector):
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     detection = detector.detect_faces(img)
     if len(detection) == 0:
@@ -54,6 +58,9 @@ def image_transform(img, pts, target_size):
 
     M = cv2.getPerspectiveTransform(pts, target_pts)
     return cv2.warpPerspective(img, M, target_size)
+
+def convert_img_BGR2RGB(img):
+    return cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
 def save_img(img, path):
     cv2.imwrite(path,img)
@@ -81,6 +88,7 @@ def process_dpl(img_path, img_output, target_size, detector):
     save_img(trans, img_output)
 
 if __name__ == "__main__":
+    from mtcnn import MTCNN
     os.chdir(os.path.dirname(os.path.realpath(__file__)))
     face_cascade = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
     detector = MTCNN()
