@@ -37,6 +37,14 @@ contients les infos et visages des célébrités
 | group_id | Groupe auquelle appartient le visage (k-means par exemple) |
 
 ### Table "celebrities_data" (Après 29.01.22)
+| Key | Description |
+| ----------- | ----------- |
+| id | Id unique |
+| name | Nom de la celebrité |
+| type | Homme/femme (Actor/Actress) |
+| film | Film où la personne à joué |
+| desc | Courte description de la personne |
+
 Je voulais pouvoir mettre plusieurs photos de la meme personne, donc j'ai splité "celebrities" en 2 tables distinctes : "celebrities_data" et "celebities_faces".
 Afin de faire de transfere de donnée, j'ai créé la nouvelle table. Puis j'ai executé ce sql afin de copier les données 
 ```sql
@@ -46,13 +54,13 @@ FROM celebrities_data
 WHERE vector NOT NULL;
 ```
 ensuite il m'a juste fallu supprimer les colones en trop pour avoir la nouvelle table.
-| Key | Description |
-| ----------- | ----------- |
-| id | Id unique |
-| name | Nom de la celebrité |
-| type | Homme/femme (Actor/Actress) |
-| film | Film où la personne à joué |
-| desc | Courte description de la personne |
+Pour tester et mettre à jour le code, j'ai supprimé les données avec
+```sql
+DELETE FROM celebrities_data;
+DELETE FROM celebrities_faces;
+DELETE FROM sqlite_sequence WHERE name="celebrities_data" OR name="celebrities_faces"
+```
+puis j'ai pu modifier les scripts afin que tous soit bon
 
 ### Table "celebrities_faces" (Après 29.01.22)
 | Key | Description |
