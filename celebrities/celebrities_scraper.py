@@ -16,10 +16,11 @@ parser = argparse.ArgumentParser()
 
  
 parser.add_argument("-t", "--thread", help = "Number of thread. default 50", default="50")
+parser.add_argument("-o", "--ouput_folder", help = "Output folder. default=../images/celebrities_before", default="../images/celebrities_before")
 
 args = vars(parser.parse_args())
 thread = int(args["thread"])
-
+output_folder = args["output_folder"]
 os.chdir(os.path.dirname(os.path.realpath(__file__))) ## SET WORKING DIR TO faces_scraper
 
 url = lambda start : f"https://www.imdb.com/search/name/?birth_date=1920-01-01,2010-01-01&adult=include&count=100&start={start}"
