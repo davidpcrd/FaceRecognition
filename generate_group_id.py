@@ -7,7 +7,7 @@ from sklearn.cluster import KMeans
 
 parser = argparse.ArgumentParser()
 
-parser.add_argument("-t", "--table", help="table name. default=celebrities", default="celebrities")
+parser.add_argument("-t", "--table", help="table name. default=celebrities", default="celebrities_faces")
 parser.add_argument("-c", "--column", help="face vector column name. default=vector", default="vector")
 parser.add_argument("-m", "--model", help="kmeans model. default=models/kmeans_model.pkl",default="models/kmeans_model.pkl")
 args = vars(parser.parse_args())
@@ -39,7 +39,6 @@ else:
     pickle.dump(model, open('models/kmeans_model.pkl', 'wb'))
 
 end = [[int(group_id[i]), vectors_w_id[i][0]] for i in range(len(group_id))]
-print(end[0])
 c = conn.cursor()
 c.executemany(f"UPDATE {table_name} SET group_id = ? WHERE id = ?", end)
 conn.commit()
