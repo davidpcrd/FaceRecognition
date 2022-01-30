@@ -102,6 +102,20 @@ J'injecte un script javascript [`scraper.js`](scraper.js) puis je recupere le co
 ### 2. Les célébrités
 Juste un petit scrape de [imdb](https://www.imdb.com/search/name)
 
+### 3. IMDb-face
+[IMDb-face](https://github.com/fwang91/IMDb-Face) est un jeu de donnée créer par Fei Wang, Liren Chen, Cheng Li, Shiyao Huang, Yanjie Chen, Chen Qian et Chen Change Loy.
+"IMDb-Face is a new large-scale noise-controlled dataset for face recognition research. The dataset contains about 1.7 million faces, 59k identities, which is manually cleaned from 2.0 million raw images." (via [github](https://github.com/fwang91/IMDb-Face))
+
+```
+@article{wang2018devil,
+	title={The Devil of Face Recognition is in the Noise},
+	author={Wang, Fei and Chen, Liren and Li, Cheng and Huang, Shiyao and Chen, Yanjie and Qian, Chen and Loy, Chen Change},
+	journal={arXiv preprint arXiv:1807.11649},
+	year={2018}
+}
+```
+
+
 ## Les fichiers importants
 Cheminement pour obtenir toutes les données
 
