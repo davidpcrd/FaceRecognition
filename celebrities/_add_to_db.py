@@ -17,7 +17,7 @@ def add_to_db(celebrities_data, celebrities_faces):
 
     c.executemany('INSERT INTO celebrities_data (name,type,film,desc) VALUES(?, ?, ?, ?);', celebrities_data)
     conn.commit()
-    c.executemany('INSERT INTO celebrities_faces (celebrity_name, img_url, hash) VALUES(?, ?, ?);', celebrities_faces)
+    c.executemany('INSERT INTO celebrities_faces (celebrity_name, img_url, hash,origin) VALUES(?, ?, ?, ?);', celebrities_faces)
     conn.commit()
 
     # met l'id de la table "celebrities_data" vers "celebrities_faces"

@@ -49,7 +49,8 @@ if not os.path.exists("data-new.json"):
             celebrities_faces.append({
                 "celebrity_name" : artist_name,
                 "img_url" : img_url,
-                "hash" : filename_hash
+                "hash" : filename_hash,
+                "origin" : "custom-scraper"
             })
 
     with open('data-new.json', 'w') as fp:

@@ -72,6 +72,7 @@ puis j'ai pu modifier les scripts afin que tous soit bon.
 | hash | Hash de l'image |
 | vector | La représentation vectoriel du visage encodé en base64 |
 | group_id | Groupe auquelle appartient le visage (k-means par exemple) |
+| origin | origine de la photo |
 
 afin d'ajouter un id a une table déjà existant, j'utilise
 ```sql
