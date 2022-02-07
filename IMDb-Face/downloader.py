@@ -1,18 +1,18 @@
 #%%
 import pandas as pd
-import cv2
-from urllib import request
-import numpy as np
 import os
 from random import randint
 import hashlib
 from utils import Downloader, Info
 from queue import Queue
+from tqdm import tqdm
 
-output_folder = "IMDb-Face/faces_extract"
+output_folder = "faces_extract"
+os.chdir(os.path.dirname(os.path.realpath(__file__))) ## SET WORKING DIR TO faces_scraper
 
 print("Open csv")
-csv = pd.read_csv(os.path.join(os.path.dirname(__file__), "test_imdb.csv"))
+csv = pd.read_csv("IMDb-Face.csv")
+# csv = pd.read_csv("test_imdb.csv")
 
 if not os.path.exists(output_folder):
     os.mkdir(output_folder)
@@ -21,19 +21,38 @@ if not os.path.exists(output_folder):
 print("Generate hashes")
 
 filenames_hash = []
-for name in csv.iloc[:,0].values:
+origin = ["IMDb-Face"]* len(csv)
+for name in tqdm(csv.iloc[:,0].values):
     filenames_hash.append(hashlib.md5(str(str(name)+str(randint(0,9999))).encode()).hexdigest())
 csv.insert(loc=0, column="hash", value=filenames_hash)
+csv.insert(loc=0, column="origin", value=origin)
 #%%
 
+print("First add to the db... so can stop anytime")
+data = csv[["name", "url", "hash", "origin"]]
+data['name'] = data['name'].apply(lambda x: " ".join(x.split("_")))
+
+data.to_csv("data_hash.csv")
+# import sqlite3
+
+# conn = sqlite3.connect(r"./database.db")
+
+# cursor = conn.cursor()
+# cursor.executemany("INSERT INTO celebrities_faces (celebrity_name, img_url, hash,origin) VALUES(?, ?, ?, ?);", data.values)
+# conn.commit()
+# cursor.close()
+# conn.close()
+
+
+#%%
 q = Queue()
 print("Add to queue")
-for index, row in csv.iterrows():
+for index, row in tqdm(csv.iterrows()):
     q.put(row)
 
 print("start thread")
 workers = []
-for i in range(50):
+for i in range(25):
     worker = Downloader(queue=q, n=i, output_folder=output_folder)
     workers.append(worker)
     worker.start()
@@ -49,7 +68,7 @@ for worker in workers:
 for worker in workers:
     worker.join()
 
-
+#%%
 
 # #%%
 
@@ -79,3 +98,5 @@ for worker in workers:
 #     cv2.imwrite(os.path.join(output_folder, f"{row['hash']}.face.png"), face)
 
 
+
+# %%

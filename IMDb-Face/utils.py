@@ -6,6 +6,7 @@ import time
 import numpy as np
 import cv2
 import os
+from tqdm import tqdm
 
 def image_transform(img, pts, target_size):
     target_pts = np.float32([
@@ -78,13 +79,20 @@ class Info(Thread):
         self.workers = workers
         self.block = False
         self.total = total
+        self.start_time = 0
+        self.last_state = 0
 
     def run(self):
+        pbar = tqdm(total=self.total)
+        # pbar.reset(total=self.total)
         while not self.block:
             current_state = 0
             for worker in self.workers:
                 current_state += worker.get_current_state()
-            print(f"{current_state:<2}/{self.total} || {round(current_state*100/self.total):>2}%")
+            # print(f"{current_state:<2}/{self.total} || {round(current_state*100/self.total):>2}%")
+            pbar.update(n=current_state-self.last_state)
+            self.last_state = current_state
             time.sleep(0.5)
+        pbar.close()
     def kill_thread(self):
         self.block = True
