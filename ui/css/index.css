@@ -1,0 +1,49 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Open Sans", sans-serif;
+}
+
+body {
+  background-color: #F1FAEE;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #A8DADC;
+  border-radius: 0px 0px 60px 60px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+header .wrapper {
+  max-width: 1000px;
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+header .wrapper h1 {
+  font-weight: bold;
+  font-size: 2rem;
+  line-height: 78.68%;
+}
+header .wrapper .github_wrapper {
+  box-sizing: border-box;
+  border-radius: 79px;
+  transition: 0.1s ease-in-out;
+}
+header .wrapper .github_wrapper img {
+  margin: 0px 15px;
+  margin-top: 5px;
+  height: 50px;
+}
+header .wrapper .github_wrapper:hover {
+  cursor: pointer;
+  border-color: #457B9D;
+}
+
+/*# sourceMappingURL=index.css.map */
