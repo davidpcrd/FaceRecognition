@@ -12,7 +12,7 @@ os.chdir(os.path.dirname(os.path.realpath(__file__))) ## SET WORKING DIR TO face
 
 print("Open csv")
 csv = pd.read_csv("IMDb-Face.csv")
-# csv = pd.read_csv("test_imdb.csv")
+# csv = pd.read_csv("face.01.csv")
 
 if not os.path.exists(output_folder):
     os.mkdir(output_folder)
@@ -22,7 +22,7 @@ print("Generate hashes")
 
 filenames_hash = []
 origin = ["IMDb-Face"]* len(csv)
-for name in tqdm(csv.iloc[:,0].values):
+for name in tqdm(csv.iloc[:,0].values, total=len(csv.iloc[:,0].values)):
     filenames_hash.append(hashlib.md5(str(str(name)+str(randint(0,9999))).encode()).hexdigest())
 csv.insert(loc=0, column="hash", value=filenames_hash)
 csv.insert(loc=0, column="origin", value=origin)
@@ -45,14 +45,15 @@ data.to_csv("data_hash.csv")
 
 
 #%%
+print("data has been saved")
 q = Queue()
 print("Add to queue")
-for index, row in tqdm(csv.iterrows()):
+for index, row in tqdm(csv.iterrows(),total=len(csv)):
     q.put(row)
 
 print("start thread")
 workers = []
-for i in range(25):
+for i in range(50):
     worker = Downloader(queue=q, n=i, output_folder=output_folder)
     workers.append(worker)
     worker.start()
