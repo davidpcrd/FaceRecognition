@@ -116,6 +116,11 @@ Juste un petit scrape de [imdb](https://www.imdb.com/search/name)
 }
 ```
 
+#### a) Problemes rencontrés
+Le fichier est très grand et afin de pouvoir telecharger un maximum de donnée en un minimum de temps , il a fallu gerer les threads.
+Beaucoup de photo renvoye un 404 lors de la requete => perte de temps
+
+Apres le telechargement, je me suis retrouvé avec un disque dur rempli de photo et un fichier `data_hash.csv` contenant le nom, l'url et l'hash. Or certaine photo n'ont pas été telechargé du au 404 où d'autres problemes difficile à identifier. Donc il faut trier les rows à ajouter à la base de donnée
 
 ## Les fichiers importants
 Cheminement pour obtenir toutes les données
@@ -184,3 +189,15 @@ optional arguments:
                         table dans laquelle mettre les infos      
   -u, --update          Update la table au lieu de add
 ```
+
+### 4. [`api.py`](api.py)
+Contient l'api pour encoder et reconnaitre les personnes
+
+Routes : 
+- /whois (POST)
+body : file
+return: json name
+
+- /encode (POST)
+body : file
+return: json 128vector
