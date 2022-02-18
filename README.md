@@ -201,3 +201,8 @@ return: json name
 - /encode (POST)
 body : file
 return: json 128vector
+
+## Problemes rencontrées
+
+### a) Les bases de données
+Sqlite devenait trop petit, donc migration vers mongodb avec docker
