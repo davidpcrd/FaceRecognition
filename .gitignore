@@ -138,3 +138,5 @@ dmypy.json
 data_hash.csv
 IMDb-Face.csv
 test_imdb.csv
+
+volumes/*
