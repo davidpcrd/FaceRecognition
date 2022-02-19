@@ -27,6 +27,8 @@ services:
     build: .
     stdin_open: true
     tty: true
+    environment:
+      - MONGO_URL=mongodb://root:root@localhost:27017/
     volumes:
       - ".:/data/fr"
     network_mode: "host"
