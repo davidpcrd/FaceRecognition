@@ -24,7 +24,7 @@ client = MongoClient(os.environ["MONGO_URL"])
 db=client.celebrities
 model = pickle.load(open("models/kmeans_model.pkl", 'rb'))
 
-for _ in tqdm(range(50)):
+for _ in tqdm(range(db.task.count_documents({}))):
     task = db.task.find_one_and_delete({})
     try:
         height,width = list(map(lambda x: int(x), task["height width"].split(" ")))
@@ -59,5 +59,5 @@ for _ in tqdm(range(50)):
     except HTTPError as e:
         pass
     except Exception as e:
-        raise e
+        pass
 
