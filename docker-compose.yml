@@ -1,26 +1,33 @@
 version: '3'
 services:
-    mongo:
-        image: mongo
-        environment:
-            - MONGO_INITDB_ROOT_USERNAME=root
-            - MONGO_INITDB_ROOT_PASSWORD=root
-        ports:
-          - "27017:27017"
-        volumes:
-          - "./volumes/mongodb:/data/db"
-    mongo-express:
-        image: mongo-express
-        environment:
-            - ME_CONFIG_MONGODB_ADMINUSERNAME=root
-            - ME_CONFIG_MONGODB_ADMINPASSWORD=root
-            - ME_CONFIG_MONGODB_URL=mongodb://root:root@mongo:27017/
-        restart: unless-stopped
-        depends_on:
-          - mongo
-        ports:
-          - "8888:8081"
-        volumes:
-          - "./volumes/mongo-express/configdb:/data/configdb"
-          - "./volumes/mongo-express/db:/data/db"
+  mongo:
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+    ports:
+      - "27017:27017"
+    volumes:
+      - "./volumes/mongodb:/data/db"
+  mongo-express:
+    image: mongo-express
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=root
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=root
+      - ME_CONFIG_MONGODB_URL=mongodb://root:root@mongo:27017/
+    restart: unless-stopped
+    depends_on:
+      - mongo
+    ports:
+      - "8888:8081"
+    volumes:
+      - "./volumes/mongo-express/configdb:/data/configdb"
+      - "./volumes/mongo-express/db:/data/db"
+  dev:
+    build: .
+    stdin_open: true
+    tty: true
+    volumes:
+      - ".:/data/fr"
+    network_mode: "host"
 
