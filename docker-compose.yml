@@ -30,6 +30,6 @@ services:
     environment:
       - MONGO_URL=mongodb://root:root@localhost:27017/
     volumes:
-      - ".:/data/fr"
+      - ".:/data/src"
     network_mode: "host"
 
