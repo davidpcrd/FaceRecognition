@@ -28,8 +28,8 @@ services:
     stdin_open: true
     tty: true
     environment:
-      - MONGO_URL=mongodb://root:root@localhost:27017/
+      - MONGO_URL=mongodb://root:root@mongo:27017/
     volumes:
       - ".:/data/src"
-    network_mode: "host"
-
+    ports:
+      - "5555:5555"

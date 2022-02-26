@@ -20,3 +20,5 @@ RUN pip install -r requirements.txt
 
 RUN (apt-get autoremove -y; \
      apt-get autoclean -y)
+
+EXPOSE 5555
