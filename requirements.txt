@@ -13,3 +13,6 @@ mtcnn==0.1.1
 deepface==0.0.68
 Pillow==9.0.1
 scikit_learn==1.0.2
+uvicorn==0.17.5
+fastapi==0.74.1
+python-multipart==0.0.5
