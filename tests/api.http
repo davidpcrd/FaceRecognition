@@ -1,24 +1,24 @@
 POST http://127.0.0.1:5555/whois
-Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Type: multipart/form-data; boundary=--bound
 
-------WebKitFormBoundary7MA4YWxkTrZu0gW
+----bound
 Content-Disposition: form-data; name="file"; filename="export.png"
 Content-Type: image/png
 
 < ./export.png
-------WebKitFormBoundary7MA4YWxkTrZu0gW--
+----bound--
 
 ###
 
 POST http://127.0.0.1:5555/encode
-Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Type: multipart/form-data; boundary=--bound
 
-------WebKitFormBoundary7MA4YWxkTrZu0gW
+----bound
 Content-Disposition: form-data; name="file"; filename="export.png"
 Content-Type: image/png
 
 < ./export.png
-------WebKitFormBoundary7MA4YWxkTrZu0gW--
+----bound--
 
 ###
 
