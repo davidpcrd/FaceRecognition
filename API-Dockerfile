@@ -1,0 +1,30 @@
+FROM python:3.8-slim
+
+WORKDIR /data/src
+RUN mkdir utils
+
+RUN apt-get update
+RUN apt-get install ffmpeg libsm6 libxext6  -y
+
+
+COPY api-requirements.txt .
+RUN pip install --no-cache-dir --upgrade -r api-requirements.txt
+
+RUN (apt-get autoremove -y; \
+     apt-get autoclean -y)
+
+
+COPY api.py .
+COPY utils/functions.py utils/
+COPY utils/models.py utils/
+COPY haarcascade_frontalface_default.xml .
+COPY models/kmeans_model.pkl models/
+COPY models/facenet_weights.h5 models/
+
+ENV MONGO_URL="mongodb://root:root@facerecognition-mongo-1:27017/"
+
+EXPOSE 80
+
+# CMD ["uvicorn", "app.main:app", "--proxy-headers", "--host", "0.0.0.0", "--port", "80"]
+# SI on utilise un proxy loadbalance - https://fastapi.tiangolo.com/deployment/docker/#behind-a-tls-termination-proxy
+CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "80"]
