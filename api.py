@@ -81,7 +81,7 @@ def whois(file: bytes = File(...), kmeans:bool = False):
             [x1+w,y1+h]
         ])
         trans = image_transform(img_np.copy(), pts, (150,150))
-        trans = convert_img_BGR2RGB(trans)
+        trans = convert_img_BGR2RGB(trans) #TODO: a regarder. duplicata BGR
         vector = DeepFace.represent(img_path = trans, model=model, enforce_detection=False)
         if kmeans:
             group = int(kmeans_model.predict([vector])[0])

@@ -1,11 +1,11 @@
-POST https://api-pnygxovlua-ew.a.run.app/whois
+POST http://localhost:5555/whois?kmeans=no
 Content-Type: multipart/form-data; boundary=--bound
 
 ----bound
 Content-Disposition: form-data; name="file"; filename="export.png"
 Content-Type: image/png
 
-< ./anya_chalotra_freya_allan.png
+< ./ben_affleck.png
 ----bound--
 
 ###

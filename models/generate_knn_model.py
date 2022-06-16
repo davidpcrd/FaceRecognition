@@ -26,7 +26,7 @@ pickle.dump(lae, open("name_encoder_model.pkl", 'wb'))
 print("OK")
 
 print("Train KNN model... ", end="")
-model = KNeighborsClassifier(n_neighbors=5, weights="distance", n_jobs=-1)
+model = KNeighborsClassifier(n_neighbors=1, weights="distance", n_jobs=-1)
 model.fit(vectors,name_encode)
 pickle.dump(model, open("knn_model.pkl", 'wb'))
 print("OK")
