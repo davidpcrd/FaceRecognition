@@ -1,4 +1,5 @@
 from fastapi import FastAPI,File, Request
+from fastapi.middleware.cors import CORSMiddleware
 
 import cv2
 import os
@@ -28,6 +29,16 @@ knn_model = pickle.load(open(knn_model_file, 'rb'))
 name_encoder_model = pickle.load(open(name_encoder_model_file, 'rb'))
 
 app = FastAPI()
+
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 def lookup_group(group_id,vector):

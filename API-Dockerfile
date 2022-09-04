@@ -20,6 +20,8 @@ COPY utils/models.py utils/
 COPY haarcascade_frontalface_default.xml .
 COPY models/kmeans_model.pkl models/
 COPY models/facenet_weights.h5 models/
+COPY models/knn_model.pkl models/
+COPY models/name_encoder_model.pkl models/
 
 ENV MONGO_URL="mongodb://root:root@facerecognition-mongo-1:27017/"
 

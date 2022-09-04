@@ -1,4 +1,10 @@
-# FaceRecognition
+# FaceRecognition 
+
+## se connecter au docker dev
+docker exec -it facerecognition-dev-1 /bin/bash
+
+# VIEUX
+# NE PAS S'Y RÉFÉRER
 
 ## Comment est construite la base de données ?
 ### Table "scraping"

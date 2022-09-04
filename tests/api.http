@@ -1,4 +1,4 @@
-POST http://localhost:5555/whois?kmeans=no
+POST http://localhost:5555/whois?kmeans=yes
 Content-Type: multipart/form-data; boundary=--bound
 
 ----bound
