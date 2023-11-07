@@ -7,11 +7,11 @@ pandas==1.1.3
 wget==3.2
 requests==2.24.0
 selenium==3.141.0
-Flask==2.0.3
+Flask
 tqdm==4.50.2
 mtcnn==0.1.1
 deepface==0.0.68
-Pillow==9.0.1
+Pillow
 scikit_learn==1.0.2
 uvicorn==0.17.5
 fastapi==0.74.1
